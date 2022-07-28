@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+
 import requests as rq
 import logging
 
 def download_file(URL,name=None,path='.',chunk_size=1024): #file download from url
+    chunk_size=round(int(chunk_size))
     if name is None:
         name = URL.split('/')[-1].split('?')[0]
     with rq.get(URL, stream=True, timeout=3600) as r:
