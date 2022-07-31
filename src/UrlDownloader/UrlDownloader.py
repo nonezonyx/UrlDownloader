@@ -6,7 +6,11 @@ headers = { 'Accept-Language' : 'ru,en;q=0.9','User-Agent':'Mozilla/5.0 (Windows
 def download_file(URL,name=None,path='.',chunk_size=1024): #file download from url
     chunk_size=round(int(chunk_size))
     if name is None:
-        name = URL.split('/')[-1].split('?')[0]
+        link_ending = URL.split('/')[-1].split('?')[0]
+        if '.' in link_ending:
+            name = link_ending
+        else:
+            name=f'{link_ending}.html'
     with rq.get(URL, stream=True, timeout=3600, headers=headers) as r:
         r.raise_for_status()
         with open(f'{path}/{name}', 'wb') as f:
