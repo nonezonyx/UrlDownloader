@@ -15,12 +15,8 @@ def download_file(URL,name=None,path='.',chunk_size=1024): #file download from u
     return f'{path}/{name}'
 
 def download_files(URLs: list,names=None,path='.',chunk_size=1024):
-    if names is None:
-        names = [URL.split('/')[-1].split('?')[0] for URL in URLs]
-    elif not len(URLs) == len(names):
-        raise AmountOfNamesNotEqualToAmountOfLinks
     file_paths = []
     for i in range(len(URLs))  :
-        file_path = download_file(URLs[i], names[i], path, chunk_size)
+        file_path = download_file(URLs[i], names[i] if i < len(names) else None, path, chunk_size)
         file_paths.append(file_path)
     return file_paths
